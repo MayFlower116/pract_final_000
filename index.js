@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
 const fs = require('fs');
 const util = require('util')
 const readFile = util.promisify(fs.readFile)
+const writeFile = util.promisify(fs.writeFile)
 
 app.post("/myForm", (req, res) => {
   let user = req.body;
@@ -59,9 +60,10 @@ app.post("/myForm", (req, res) => {
         // console.log(database)
 
         database.users.push(new_user)
+        writeFile('./database.json', database)
         resolve(database)
         }).then(() => {
-          console.log(database)
+          console.log('database')
         })
         
         
